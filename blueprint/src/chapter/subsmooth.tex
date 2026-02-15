@@ -1,0 +1,35 @@
+\chapter{Subsmooth Case}
+
+This chapter presents convergence results for ball-compact subsmooth moving sets.
+
+\section{Subsmooth Sets}
+
+\begin{definition}[Subsmooth set]
+\label{def:subsmooth}
+\lean{MoreauSweeping.Subsmooth}
+Let $S \subset H$ be a closed set. We say that $S$ is subsmooth at $x_0 \in S$ if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+$$\langle \xi_2 - \xi_1, x_2 - x_1 \rangle \ge -\varepsilon \|x_2 - x_1\|$$
+whenever $x_1, x_2 \in B[x_0, \delta] \cap S$ and $\xi_i \in N(S; x_i) \cap \mathbb{B}$ for $i \in \{1,2\}$.
+\end{definition}
+
+\begin{definition}[Equi-uniformly subsmooth family]
+\label{def:equi_uniformly_subsmooth}
+\lean{MoreauSweeping.EquiUniformlySubsmooth}
+A family $(S(t))_{t\in I}$ of closed sets is called equi-uniformly subsmooth if for all $\varepsilon > 0$, there exists $\delta > 0$ such that for all $t \in I$, the subsmoothness inequality holds uniformly.
+\end{definition}
+
+\section{Stability Result}
+
+\begin{lemma}[Stability for subsmooth sets]
+\label{lem:stability_subsmooth}
+\lean{MoreauSweeping.stability_subsmooth}
+Let $\mathcal{C} = \{C_n\}_{n\in\mathbb{N}} \cup \{C\}$ be a family of nonempty, closed, and equi-uniformly subsmooth sets. Under appropriate convergence assumptions, certain stability properties hold for the subdifferentials of distance functions.
+\end{lemma}
+
+\section{Convergence Result}
+
+\begin{theorem}[Convergence for subsmooth sets]
+\label{thm:convergence_subsmooth}
+\lean{MoreauSweeping.convergence_subsmooth}
+For ball-compact subsmooth moving sets, the catching-up algorithm with approximate projections converges to a solution of the sweeping process.
+\end{theorem}

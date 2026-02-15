@@ -43,4 +43,4 @@ jobs:
           restore-keys: LakeBuild-
 
       - name: Build project
-        run: ~/.elan/bin/lake build Clt
+        run: ~/.elan/bin/lake build MoreauSweeping

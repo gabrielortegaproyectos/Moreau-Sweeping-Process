@@ -34,7 +34,7 @@ jobs:
         run: ~/.elan/bin/lake exe cache get || true
 
       - name: Build project
-        run: ~/.elan/bin/lake build Clt
+        run: ~/.elan/bin/lake build MoreauSweeping
 
       # - name: Cache mathlib API docs
       #   uses: actions/cache@v4

@@ -1,5 +1,5 @@
-name = "clt"
-defaultTargets = ["Clt"]
+name = "MoreauSweeping"
+defaultTargets = ["MoreauSweeping"]
 
 [leanOptions]
 weak.linter.docPrime = false
@@ -43,4 +43,4 @@ name = "checkdecls"
 git = "https://github.com/PatrickMassot/checkdecls.git"
 
 [[lean_lib]]
-name = "Clt"
+name = "MoreauSweeping"
