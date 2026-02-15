@@ -1,0 +1,111 @@
+\chapter{The central limit theorem}
+
+\section{The central limit theorem for real random variables}
+
+\begin{lemma}\label{lem:deriv_charFun}
+\leanok
+\lean{iteratedDeriv_charFun}
+\uses{def:charFun}
+Let $X$ be a real random variable with characteristic function $\phi$ with $\mathbb{E}[\vert X \vert^n] < \infty$ and let $k \le n$.
+Then the $k$\textsuperscript{th} derivative of $\phi$ is
+$\phi^{(k)}(t) = \mathbb{E}[i X]^k e^{i t X}$ \: .
+\end{lemma}
+
+\begin{proof}\leanok
+\uses{lem:charFun_contDiff}
+\end{proof}
+
+\begin{lemma}[Peano form of Taylor's theorem]\label{lem:taylor_peano}
+\mathlibok
+\lean{taylor_isLittleO}
+For a $n$-times continuously differentiable function $f : \mathbb{R} \to E$, for any $x_0\in\mathbb{R}$,
+\begin{align*}
+f(x) - \sum_{i=0}^n\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i = o((x - x_0)^k)
+\: .
+\end{align*}
+\end{lemma}
+
+\begin{proof}\leanok
+\end{proof}
+
+\begin{lemma}\label{lem:iIndepFun_iff_pi_map_eq_map}
+\mathlibok
+\lean{ProbabilityTheory.iIndepFun_iff_map_fun_eq_pi_map}
+A finite collection of random variables are independent iff their joint law is the product of their respective laws.
+\end{lemma}
+
+\begin{proof}\leanok
+\end{proof}
+
+\begin{lemma}\label{lem:charFun_taylor}
+\leanok
+\lean{taylor_charFun}
+Let $X$ be a real random variable with characteristic function $\phi$, with $\mathbb{E}[\vert X \vert^n] < \infty$. Then as $t \to 0$,
+\begin{align*}
+\phi(t) = \sum_{k=0}^n \frac{(it)^k \mathbb{E}[X^k]}{k!} + o(t^n)
+\: .
+\end{align*}
+\end{lemma}
+
+\begin{proof}\leanok
+\uses{lem:deriv_charFun, lem:taylor_peano}
+\end{proof}
+
+\begin{lemma}\label{lem:tendsto_pow_exp_of_isLittleO}
+\leanok
+\lean{tendsto_pow_exp_of_isLittleO}
+For $t\in\mathbb{C}$, $\lim_{n\to\infty}(1+t/n+o(1/n))^n=\exp(t)$ (where the little-$o$ term may be complex).
+\end{lemma}
+
+\begin{proof}\leanok
+\end{proof}
+
+\begin{theorem}[Central limit theorem]\label{thm:clt}
+    \leanok
+    \lean{ProbabilityTheory.central_limit}
+    \uses{def:cvg_distribution}
+Let $X_1, X_2, \ldots$ be i.i.d. real random variables with mean 0 and variance 1, and let $Z$ be a random variable with law $\mathcal N(0,1)$. Then
+\begin{align*}
+\frac{1}{\sqrt{n}}\sum_{k=1}^n X_k \xrightarrow{d} Z \: .
+\end{align*}
+\end{theorem}
+
+\begin{proof}\uses{lem:charFun_smul, lem:charFun_add_of_indep, thm:charFun_tendsto_iff_measure_tendsto, lem:charFun_taylor, lem:gaussian_charFun, lem:tendsto_pow_exp_of_isLittleO, lem:iIndepFun_iff_pi_map_eq_map}
+\leanok
+Let $S_n = \frac{1}{\sqrt{n}}\sum_{k=1}^n X_k$. Let $\phi$ be the characteristic function of $X_k$. By Lemma~\ref{lem:charFun_smul} and~\ref{lem:charFun_add_of_indep}, the characteristic function of $S_n$ is $\phi_n(t) = (\phi(n^{-1/2}t))^n$.
+
+By Lemma \ref{lem:charFun_taylor},
+\begin{align*}
+\phi_n(t) = (\phi(n^{-1/2}t))^n = \left(1 - \frac{1}{2n}t^2 + o(\frac{1}{n})\right)^n \to_{n \to +\infty} e^{-t^2/2} \: .
+\end{align*}
+
+Since the r.h.s. is the characteristic function of $Z$, we conclude that $\frac{1}{\sqrt{n}}\sum_{k=1}^n X_k \xrightarrow{d} Z$ by Lemma~\ref{thm:charFun_tendsto_iff_measure_tendsto}.
+\end{proof}
+
+
+\section{The central limit theorem for random variables in $\mathbb{R}^d$}
+
+\begin{theorem}[Cramér-Wold]\label{thm:cramer_wold}
+    \uses{def:cvg_distribution}
+Let $X, X_1, X_2, \ldots$ be random variables in $\mathbb{R}^d$.
+Then $X_n \xrightarrow{d} X$ iff for every $a \in \mathbb{R}^d$, $\langle a, X_n \rangle \xrightarrow{d} \langle a, X \rangle$.
+\end{theorem}
+
+\begin{proof}
+    \uses{thm:charFun_tendsto_iff_measure_tendsto}
+By Theorem~\ref{thm:charFun_tendsto_iff_measure_tendsto}, the convergence in distribution of the random variables is equivalent to the convergence of their characteristic functions for each $a \in \mathbb{R}^d$, which for each such $a$ is equivalent to the convergence in distribution of the random variables $\langle a, X_n \rangle$ by the same theorem.
+\end{proof}
+
+\begin{theorem}[Central limit theorem in $\mathbb{R}^d$]\label{thm:multivariate_clt}
+    %\leanok
+    %\lean{ProbabilityTheory.multivariate_central_limit}
+Let $X_1, X_2, \ldots$ be i.i.d. random variables in $\mathbb{R}^d$ with mean 0 and identity covariance matrix, and let $Z$ be a random variable with law $\mathcal N(0,I_d)$. Then
+\begin{align*}
+\frac{1}{\sqrt{n}}\sum_{k=1}^n X_k \xrightarrow{d} Z \: .
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+\uses{thm:cramer_wold, thm:clt, lem:stdGaussian_finiteDimensional}
+
+\end{proof}

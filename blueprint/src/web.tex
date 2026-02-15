@@ -1,0 +1,31 @@
+% This file makes the web version of the blueprint.
+% This file can be built locally.
+
+\documentclass{report}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.svg,.png,.jpg}
+\usepackage[capitalize]{cleveref}
+\usepackage[showmore, dep_graph, project=../../]{blueprint}
+
+\usepackage{tikz-cd}
+\usepackage{tikz}
+
+\input{preamble/common}
+\input{preamble/web}
+
+\graphcolor{mathlib}{purple}{Purple}
+
+%\home{https://github.com/RemyDegenne/CLT/}
+\github{https://github.com/RemyDegenne/CLT/}
+\dochome{https://remydegenne.github.io/CLT/docs}
+
+\title{CLT}
+\author{}
+
+\begin{document}
+\maketitle
+\input{chapter/main}
+\end{document}
