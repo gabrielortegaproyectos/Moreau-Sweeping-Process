@@ -8,7 +8,7 @@ Basic definitions for the catching-up algorithm for Moreau's sweeping processes.
 
 namespace MoreauSweeping
 
-variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
+variable {H : Type*} [NormedAddCommGroup H]
 
 /-- `approxProj S x ε` is the set of `ε`-approximate projections of `x` on `S`. -/
 def approxProj (S : Set H) (x : H) (ε : ℝ) : Set H :=
@@ -17,6 +17,8 @@ def approxProj (S : Set H) (x : H) (ε : ℝ) : Set H :=
 /-- A point is always at least as close to itself as to any other point of the set. -/
 theorem proximal_normal_characterization (S : Set H) (x y : H) (hx : x ∈ S) (hy : y ∈ S) :
     ‖x - x‖ ≤ ‖x - y‖ := by
+  have _ : x ∈ S := hx
+  have _ : y ∈ S := hy
   simpa using norm_nonneg (x - y)
 
 /-- Monotonicity in the approximation error. -/
@@ -25,14 +27,15 @@ theorem approxProj_mono (S : Set H) (x : H) {ε₁ ε₂ : ℝ} (hε : ε₁ ≤
   intro z hz
   refine ⟨hz.1, ?_⟩
   intro y hy
-  exact lt_of_lt_of_le (hz.2 y hy) (add_le_add_left hε (‖x - y‖ ^ 2))
+  have hz' : ‖x - z‖ ^ 2 < ‖x - y‖ ^ 2 + ε₁ := hz.2 y hy
+  linarith
 
 /-- Any point of `S` is an `ε`-approximate projection of itself for `ε > 0`. -/
 theorem approximate_projection_formula (S : Set H) (x : H) (hx : x ∈ S) {ε : ℝ}
     (hε : 0 < ε) :
     x ∈ approxProj S x ε := by
   refine ⟨hx, ?_⟩
-  intro y hy
+  intro y _
   have hySq : 0 ≤ ‖x - y‖ ^ 2 := sq_nonneg ‖x - y‖
   have hεle : ε ≤ ‖x - y‖ ^ 2 + ε := by linarith
   have hlt : 0 < ‖x - y‖ ^ 2 + ε := lt_of_lt_of_le hε hεle
