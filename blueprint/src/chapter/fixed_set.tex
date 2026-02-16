@@ -4,7 +4,20 @@ This chapter addresses the convergence of the catching-up algorithm for a fixed 
 
 \section{The Fixed Set Problem}
 
-In this chapter, we consider the simplified case where $C(t) \equiv C$ for all $t \in [0,T]$, i.e., the set does not move in time.
+In this chapter, we consider the simplified case where $C(t) \equiv C$ for all $t \in [0,T]$, i.e., the set does not move in time. The sweeping process reduces to:
+
+\begin{equation}
+\label{eq:fixed_sweeping_process}
+\begin{cases}
+\dot{x}(t) \in -N(C; x(t)) & \text{a.e. } t \in [0, T] \\
+x(0) = x_0 \in C
+\end{cases}
+\end{equation}
+
+\section{Simplified Algorithm}
+
+For a fixed set $C$, the enhanced catching-up algorithm simplifies to:
+$$x_{k+1}^n \in \text{proj}_C^{\varepsilon_k^n}(x_k^n) \quad \text{for all } k \in \{0, \dots, n-1\}$$
 
 \begin{theorem}[Convergence for fixed sets]
 \label{thm:convergence_fixed_set}

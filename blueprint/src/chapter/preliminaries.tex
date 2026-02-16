@@ -13,13 +13,32 @@ $$d_S(x) := \inf_{z \in S} \|x - z\|$$
 for all $x \in H$.
 \end{definition}
 
+\section{Support and Enlargements}
+
+\begin{definition}[Support function]
+\label{def:support}
+For a set $S \subset H$, the support function at $x \in H$ is defined as
+$$\sigma(x, S) := \sup_{z \in S} \langle x, z \rangle$$
+\end{definition}
+
+\begin{definition}[Enlargements]
+\label{def:enlargements}
+Given $\rho \in ]0, +\infty]$ and $\gamma < 1$ positive, the $\rho$-enlargement and $\gamma\rho$-enlargement of $S$ are defined as
+$$U_{\rho}(S) = \{x \in H : d_S(x) < \rho\}$$
+$$U_{\rho}^{\gamma}(S) := \{x \in H : d_S(x) < \gamma \rho\}$$
+\end{definition}
+
+\begin{definition}[Hausdorff distance]
+\label{def:hausdorff}
+The excess of $A$ over $B$ is $e(A, B) := \sup_{x \in A} d_B(x)$. The Hausdorff distance is
+$$d_H(A, B) := \max\{e(A, B), e(B, A)\}$$
+\end{definition}
+
 \section{Normal Cones}
 
-\begin{definition}[Proximal normal cone]
-\label{def:proximal_normal_cone}
-Let $S \subset H$ be a closed set and $x \in S$. The proximal normal cone to $S$ at $x$ is defined as
-$$N^P(S; x) := \partial_P I_S(x)$$
-where $I_S$ is the indicator function of $S$.
+\begin{definition}[Clarke tangent cone]
+\label{def:clarke_tangent_cone}
+A vector $h \in H$ belongs to the Clarke tangent cone $T(S; x)$ when for every sequence $(x_n)$ in $S$ converging to $x$ and every sequence of positive numbers $(t_n)$ converging to $0$, there exists a sequence $(h_n)$ converging to $h$ such that $x_n + t_n h_n \in S$ for all $n \in \mathbb{N}$.
 \end{definition}
 
 \begin{definition}[Clarke normal cone]
@@ -28,6 +47,27 @@ The Clarke normal cone to $S$ at $x \in S$ is defined as
 $$N(S; x) := \{ v \in H : \langle v, h \rangle \le 0 \text{ for all } h \in T(S; x) \}$$
 where $T(S; x)$ is the Clarke tangent cone.
 \end{definition}
+
+\begin{definition}[Proximal subdifferential]
+\label{def:proximal_subdifferential}
+Let $f : H \to \mathbb{R} \cup \{+\infty\}$ be lower semicontinuous and $x \in \text{dom } f$. An element $\zeta$ belongs to the proximal subdifferential of $f$ at $x$, denoted $\partial_P f(x)$, if there exist $\sigma, \eta \geq 0$ such that
+$$f(y) \ge f(x) + \langle \zeta, y - x \rangle - \sigma \|y - x\|^2$$
+for all $y \in \mathbb{B}(x; \eta)$.
+\end{definition}
+
+\begin{definition}[Proximal normal cone]
+\label{def:proximal_normal_cone}
+Let $S \subset H$ be a closed set and $x \in S$. The proximal normal cone to $S$ at $x$ is
+$$N^P(S; x) := \partial_P I_S(x)$$
+where $I_S$ is the indicator function of $S$.
+\end{definition}
+
+\begin{lemma}[Proximal normal cone characterization]
+\label{lem:proximal_normal_characterization}
+\lean{MoreauSweeping.proximal_normal_characterization}
+For any set $S \subset H$ and $x \in S$,
+$$N^P(S; x) \cap \mathbb{B} = \partial_P d_S(x)$$
+\end{lemma}
 
 \section{Approximate Projections}
 
