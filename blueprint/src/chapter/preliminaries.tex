@@ -83,3 +83,16 @@ $$\text{proj}_S^\varepsilon(x) := \left\{ z \in S : \|x - z\|^2 < d_S^2(x) + \va
 Let $S \subset H$, $x \in S$, and $\varepsilon > 0$. Then
 $$x \in \text{proj}_S^\varepsilon(x).$$
 \end{lemma}
+
+\begin{lemma}[Monotonicity with respect to the tolerance]
+\label{lem:approx_projection_mono}
+\lean{MoreauSweeping.approxProj_mono}
+If $0 < \varepsilon_1 \le \varepsilon_2$, then
+$$\text{proj}_S^{\varepsilon_1}(x) \subset \text{proj}_S^{\varepsilon_2}(x).$$
+\end{lemma}
+
+\begin{lemma}[Nonemptiness of approximate projections]
+\label{lem:approx_projection_nonempty}
+\lean{MoreauSweeping.approxProj_nonempty}
+If $x \in S$ and $\varepsilon > 0$, then $\text{proj}_S^\varepsilon(x)$ is nonempty.
+\end{lemma}

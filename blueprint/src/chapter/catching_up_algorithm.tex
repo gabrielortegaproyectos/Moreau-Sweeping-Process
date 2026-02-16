@@ -31,6 +31,20 @@ $$x_{k+1}^n \in \text{proj}_{C(t_{k+1}^n)}^{\varepsilon_k^n}(x_k^n)$$
 for all $k \in \{0, \ldots, n-1\}$, with $x_0^n = x_0$.
 \end{definition}
 
+\begin{definition}[Admissible error schedule]
+\label{def:admissible_error}
+\lean{MoreauSweeping.AdmissibleError}
+A sequence $(\varepsilon_k)$ is admissible if $\varepsilon_k > 0$ for every $k$.
+\end{definition}
+
+\begin{lemma}[Self-membership under admissible errors]
+\label{lem:self_mem_approx_proj}
+\lean{MoreauSweeping.self_mem_approxProj_of_admissibleError}
+\uses{def:admissible_error, lem:approximate_projection_formula}
+If $x \in S$ and $(\varepsilon_k)$ is admissible, then for every $k$:
+$$x \in \text{proj}_{S}^{\varepsilon_k}(x).$$
+\end{lemma}
+
 \section{Main Properties}
 
 \begin{theorem}[Properties of the algorithm]
