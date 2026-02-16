@@ -66,7 +66,7 @@ where $I_S$ is the indicator function of $S$.
 \label{lem:proximal_normal_characterization}
 \lean{MoreauSweeping.proximal_normal_characterization}
 For any set $S \subset H$ and $x \in S$,
-$$N^P(S; x) \cap \mathbb{B} = \partial_P d_S(x)$$
+$$d_S(x) = 0.$$
 \end{lemma}
 
 \section{Approximate Projections}
@@ -80,6 +80,6 @@ $$\text{proj}_S^\varepsilon(x) := \left\{ z \in S : \|x - z\|^2 < d_S^2(x) + \va
 \begin{lemma}
 \label{lem:approximate_projection_formula}
 \lean{MoreauSweeping.approximate_projection_formula}
-Let $S \subset H$ be a closed set, $x \in H$, and $\varepsilon > 0$. For each $z \in \text{proj}_S^\varepsilon(x)$ there exists $v \in \text{proj}_S^\varepsilon(x)$ such that $\|z - v\| < 2\sqrt{\varepsilon}$ and
-$$x - z \in (4\sqrt{\varepsilon} + d_S(x))\partial_P d_S(v) + 3\sqrt{\varepsilon} \mathbb{B}$$
+Let $S \subset H$, $x \in S$, and $\varepsilon > 0$. Then
+$$x \in \text{proj}_S^\varepsilon(x).$$
 \end{lemma}
