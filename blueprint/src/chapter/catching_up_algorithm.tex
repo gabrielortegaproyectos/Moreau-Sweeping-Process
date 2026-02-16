@@ -15,7 +15,14 @@ x(0) = x_0 \in C(0).
 \end{equation}
 \end{definition}
 
-\section{The Algorithm}
+\section{Classical Catching-Up Algorithm}
+
+The classical catching-up algorithm, developed by J.J. Moreau for convex moving sets, consists of taking a time discretization $\{t_k^n\}_{k=0}^n$ of the interval $[0, T]$ and defining a piecewise linear continuous function $x^n : [0, T] \to H$ with nodes
+$$x_{k+1}^n := \text{proj}_{C(t_{k+1}^n)}(x_k^n) \quad \text{for all } k \in \{0, \dots, n-1\}$$
+
+Under suitable assumptions, the sequence $(x^n)$ converges to the unique solution of \eqref{eq:sweeping_process}.
+
+\section{Enhanced Algorithm with Approximate Projections}
 
 \begin{definition}[Catching-up algorithm with approximate projections]
 \label{def:catching_up_algorithm}

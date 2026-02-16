@@ -19,7 +19,27 @@ Let $S \subset H$ be a closed set and $\rho \in (0, +\infty]$. The following are
 \begin{enumerate}
 \item $S$ is $\rho$-uniformly prox-regular
 \item For any $\gamma \in (0,1)$, the projection map $\text{proj}_S$ is well-defined on $U_\rho^\gamma(S)$ and Lipschitz continuous with constant $(1-\gamma)^{-1}$
+\item For any $x_i \in S$, $v_i \in N^P(S; x_i)$ with $i = 1, 2$:
+$$\langle v_1 - v_2, x_1 - x_2 \rangle \ge -\frac{1}{2\rho} (\|v_1\| + \|v_2\|) \|x_1 - x_2\|^2$$
 \end{enumerate}
+\end{proposition}
+
+\begin{remark}
+Convex sets are $\rho$-uniformly prox-regular for any $\rho > 0$. This class also includes nonconvex bodies with $C^2$ boundary.
+\end{remark}
+
+\section{Properties of Approximate Projections for Prox-Regular Sets}
+
+\begin{proposition}[Convergence of approximate projections]
+\label{prop:approx_proj_convergence}
+\lean{MoreauSweeping.approx_proj_convergence_prox_regular}
+Let $S \subset H$ be $\rho$-uniformly prox-regular. If $(x_n) \to x \in U_\rho(S)$ and $z_n \in \text{proj}_S^{\varepsilon_n}(x_n)$ with $\varepsilon_n \to 0$, then $z_n \to \text{proj}_S(x)$.
+\end{proposition}
+
+\begin{proposition}[Quasi-Lipschitz property]
+\label{prop:quasi_lipschitz}
+\lean{MoreauSweeping.quasi_lipschitz_approx_proj}
+For suitable $\gamma$ and $\varepsilon$, approximate projections on prox-regular sets satisfy a quasi-Lipschitz property relating the distance between projections to the distance between original points.
 \end{proposition}
 
 \section{Convergence Result}

@@ -4,7 +4,27 @@ This chapter briefly discusses numerical methods for computing approximate proje
 
 \section{Computing Approximate Projections}
 
-The practical implementation of the catching-up algorithm requires efficient methods for computing approximate projections onto closed sets.
+The practical implementation of the catching-up algorithm requires efficient methods for computing approximate projections onto closed sets. Given $C \subset H$, $x \in H$, and tolerance $\varepsilon > 0$, we seek $\bar{x} \in C$ such that:
+$$\|x - \bar{x}\|^2 < \inf_{y \in C} \|x - y\|^2 + \varepsilon$$
+
+This is equivalent to solving the optimization problem:
+$$\min_{y \in C} \|x - y\|^2$$
+to within tolerance $\varepsilon$.
+
+\section{Gradient-Based Methods}
+
+\subsection{Projected Gradient Descent}
+
+For sets defined by inequality constraints $C = \{y : g_i(y) \le 0, i = 1,\ldots,m\}$, projected gradient descent is natural:
+\begin{enumerate}
+\item Start with $y_0 \in C$
+\item Iterate: $y_{k+1} = \text{proj}_C(y_k - \alpha_k \nabla f(y_k))$ where $f(y) = \|x - y\|^2$
+\item Stop when estimated distance satisfies the $\varepsilon$-condition
+\end{enumerate}
+
+\subsection{Interior Point Methods}
+
+For smooth inequality constraints, interior point methods can be effective by solving a sequence of barrier problems.
 
 \section{Frank-Wolfe Algorithm}
 
@@ -17,3 +37,18 @@ For certain classes of sets defined by sublevel sets of functions, separation or
 \section{Implementation Considerations}
 
 The choice of numerical method depends on the specific structure of the moving sets $C(t)$ and the required accuracy $\varepsilon$.
+
+\subsection{Error Tolerance Scheduling}
+
+The error tolerances $(\varepsilon_k^n)$ should decrease appropriately with the discretization:
+$$\varepsilon_k^n = O(\delta_n^2) \quad \text{or} \quad \sum_{k=0}^{n-1} \varepsilon_k^n = O(\delta_n)$$
+where $\delta_n = \max_k |t_{k+1}^n - t_k^n|$ is the mesh size.
+
+\subsection{Initialization Strategies}
+
+Good initialization accelerates convergence:
+\begin{itemize}
+\item Use the previous solution $x_k^n$ as starting point for computing $x_{k+1}^n$
+\item For convex outer approximations, use analytical projections
+\item Warm-start with solutions from coarser discretizations
+\end{itemize}
