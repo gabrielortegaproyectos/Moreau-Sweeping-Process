@@ -43,6 +43,7 @@ The choice of numerical method depends on the specific structure of the moving s
 The error tolerances $(\varepsilon_k^n)$ should decrease appropriately with the discretization:
 $$\varepsilon_k^n = O(\delta_n^2) \quad \text{or} \quad \sum_{k=0}^{n-1} \varepsilon_k^n = O(\delta_n)$$
 where $\delta_n = \max_k |t_{k+1}^n - t_k^n|$ is the mesh size.
+In particular, each schedule should satisfy positivity as in \cref{def:admissible_error}.
 
 \subsection{Initialization Strategies}
 
