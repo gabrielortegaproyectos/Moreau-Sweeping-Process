@@ -99,8 +99,17 @@ jobs:
       #     find home_page/docs -name "*.trace" -delete
       #     find home_page/docs -name "*.hash" -delete
 
+      - name: Check for Gemfile
+        id: check_gemfile
+        run: |
+          if [ -f home_page/Gemfile ]; then
+            echo "JEKYLL_BUILD=true" >> $GITHUB_ENV
+          else
+            echo "JEKYLL_BUILD=false" >> $GITHUB_ENV
+          fi
+
       - name: Bundle dependencies
-        if: env.HOME_PAGE_EXISTS == 'true' && hashFiles('home_page/Gemfile') != ''
+        if: env.HOME_PAGE_EXISTS == 'true' && env.JEKYLL_BUILD == 'true'
         uses: ruby/setup-ruby@v1
         with:
           working-directory: home_page
@@ -108,7 +117,7 @@ jobs:
           bundler-cache: true  # Enable caching for bundler
 
       - name: Build website using Jekyll
-        if: env.HOME_PAGE_EXISTS == 'true' && hashFiles('home_page/Gemfile') != ''
+        if: env.HOME_PAGE_EXISTS == 'true' && env.JEKYLL_BUILD == 'true'
         working-directory: home_page
         env:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,7 +126,7 @@ jobs:
       - name: "Upload website (API documentation, blueprint and any home page)"
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.HOME_PAGE_EXISTS == 'true' && 'home_page/_site' || 'home_page/' }}
+          path: ${{ env.JEKYLL_BUILD == 'true' && 'home_page/_site' || 'home_page/' }}
 
       - name: Deploy to GitHub Pages
         id: deployment
