@@ -100,6 +100,7 @@ jobs:
       #     find home_page/docs -name "*.hash" -delete
 
       - name: Bundle dependencies
+        if: env.HOME_PAGE_EXISTS == 'true' && hashFiles('home_page/Gemfile') != ''
         uses: ruby/setup-ruby@v1
         with:
           working-directory: home_page
@@ -107,7 +108,7 @@ jobs:
           bundler-cache: true  # Enable caching for bundler
 
       - name: Build website using Jekyll
-        if: env.HOME_PAGE_EXISTS == 'true'
+        if: env.HOME_PAGE_EXISTS == 'true' && hashFiles('home_page/Gemfile') != ''
         working-directory: home_page
         env:
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
