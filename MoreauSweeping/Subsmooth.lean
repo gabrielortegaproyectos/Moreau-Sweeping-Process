@@ -8,6 +8,8 @@ import MoreauSweeping.CatchingUp
 Subsmooth sets and convergence for ball-compact subsmooth moving sets.
 -/
 
+namespace MoreauSweeping
+
 variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 
 /-- A set is subsmooth -/
@@ -21,3 +23,5 @@ axiom stability_subsmooth : True
 
 /-- Convergence for subsmooth sets -/
 axiom convergence_subsmooth : True
+
+end MoreauSweeping
