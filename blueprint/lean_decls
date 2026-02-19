@@ -1,4 +1,10 @@
 MoreauSweeping.approximate_projection_formula
+MoreauSweeping.distance
+MoreauSweeping.support
+MoreauSweeping.ClarkeTangentCone
+MoreauSweeping.proximalSubdifferential
+MoreauSweeping.proximal_normal_characterization
+MoreauSweeping.BoundedlyCompact
 MoreauSweeping.algorithm_properties
 MoreauSweeping.UniformlyProxRegular
 MoreauSweeping.prox_regular_characterization

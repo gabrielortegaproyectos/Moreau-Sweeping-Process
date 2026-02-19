@@ -8,6 +8,7 @@ Throughout this work, $H$ denotes a real Hilbert space with norm $\|\cdot\|$ ind
 
 \begin{definition}[Distance function]
 \label{def:distance}
+\lean{MoreauSweeping.distance}
 For a set $S \subset H$, the distance function is defined as
 $$d_S(x) := \inf_{z \in S} \|x - z\|$$
 for all $x \in H$.
@@ -17,6 +18,7 @@ for all $x \in H$.
 
 \begin{definition}[Support function]
 \label{def:support}
+\lean{MoreauSweeping.support}
 For a set $S \subset H$, the support function at $x \in H$ is defined as
 $$\sigma(x, S) := \sup_{z \in S} \langle x, z \rangle$$
 \end{definition}
@@ -38,6 +40,7 @@ $$d_H(A, B) := \max\{e(A, B), e(B, A)\}$$
 
 \begin{definition}[Clarke tangent cone]
 \label{def:clarke_tangent_cone}
+\lean{MoreauSweeping.ClarkeTangentCone}
 A vector $h \in H$ belongs to the Clarke tangent cone $T(S; x)$ when for every sequence $(x_n)$ in $S$ converging to $x$ and every sequence of positive numbers $(t_n)$ converging to $0$, there exists a sequence $(h_n)$ converging to $h$ such that $x_n + t_n h_n \in S$ for all $n \in \mathbb{N}$.
 \end{definition}
 
@@ -50,6 +53,7 @@ where $T(S; x)$ is the Clarke tangent cone.
 
 \begin{definition}[Proximal subdifferential]
 \label{def:proximal_subdifferential}
+\lean{MoreauSweeping.proximalSubdifferential}
 Let $f : H \to \mathbb{R} \cup \{+\infty\}$ be lower semicontinuous and $x \in \text{dom } f$. An element $\zeta$ belongs to the proximal subdifferential of $f$ at $x$, denoted $\partial_P f(x)$, if there exist $\sigma, \eta \geq 0$ such that
 $$f(y) \ge f(x) + \langle \zeta, y - x \rangle - \sigma \|y - x\|^2$$
 for all $y \in \mathbb{B}(x; \eta)$.

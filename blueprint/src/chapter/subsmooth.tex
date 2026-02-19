@@ -1,6 +1,6 @@
 \chapter{Subsmooth Case}
 
-This chapter presents convergence results for ball-compact subsmooth moving sets.
+This chapter presents convergence results for boundedly compact subsmooth moving sets.
 
 \section{Subsmooth Sets}
 
@@ -24,13 +24,14 @@ The class of subsmooth sets includes both convex and uniformly prox-regular sets
 
 \section{Ball Compactness}
 
-\begin{definition}[Ball-compact sets]
-\label{def:ball_compact}
-A set $S \subset H$ is ball-compact if $S \cap r\mathbb{B}$ is compact for all $r > 0$.
+\begin{definition}[Boundedly compact sets]
+\label{def:boundedly_compact}
+\lean{MoreauSweeping.BoundedlyCompact}
+A set $S \subset H$ is boundedly compact if $S \cap r\mathbb{B}$ is compact for all $r > 0$.
 \end{definition}
 
 \begin{remark}
-Ball-compactness is weaker than compactness but sufficient for many existence results in infinite-dimensional Hilbert spaces.
+Bounded compactness is weaker than compactness but sufficient for many existence results in infinite-dimensional Hilbert spaces.
 \end{remark}
 
 \section{Stability Result}
@@ -46,5 +47,5 @@ Let $\mathcal{C} = \{C_n\}_{n\in\mathbb{N}} \cup \{C\}$ be a family of nonempty,
 \begin{theorem}[Convergence for subsmooth sets]
 \label{thm:convergence_subsmooth}
 \lean{MoreauSweeping.convergence_subsmooth}
-For ball-compact subsmooth moving sets, the catching-up algorithm with approximate projections converges to a solution of the sweeping process.
+For boundedly compact subsmooth moving sets, the catching-up algorithm with approximate projections converges to a solution of the sweeping process.
 \end{theorem}
