@@ -6,6 +6,7 @@ This chapter presents convergence results for boundedly compact subsmooth moving
 
 \begin{definition}[Subsmooth set]
 \label{def:subsmooth}
+\uses{def:clarke_normal_cone}
 \lean{MoreauSweeping.Subsmooth}
 Let $S \subset H$ be a closed set. We say that $S$ is subsmooth at $x_0 \in S$ if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
 $$\langle \xi_2 - \xi_1, x_2 - x_1 \rangle \ge -\varepsilon \|x_2 - x_1\|$$
@@ -14,6 +15,7 @@ whenever $x_1, x_2 \in B[x_0, \delta] \cap S$ and $\xi_i \in N(S; x_i) \cap \mat
 
 \begin{definition}[Equi-uniformly subsmooth family]
 \label{def:equi_uniformly_subsmooth}
+\uses{def:subsmooth}
 \lean{MoreauSweeping.EquiUniformlySubsmooth}
 A family $(S(t))_{t\in I}$ of closed sets is called equi-uniformly subsmooth if for all $\varepsilon > 0$, there exists $\delta > 0$ such that for all $t \in I$, the subsmoothness inequality holds uniformly.
 \end{definition}
@@ -38,7 +40,9 @@ Bounded compactness is weaker than compactness but sufficient for many existence
 
 \begin{lemma}[Stability for subsmooth sets]
 \label{lem:stability_subsmooth}
+\uses{def:distance,def:equi_uniformly_subsmooth}
 \lean{MoreauSweeping.stability_subsmooth}
+\uses{def:subsmooth, def:equi_uniformly_subsmooth, lem:proximal_normal_characterization}
 Let $\mathcal{C} = \{C_n\}_{n\in\mathbb{N}} \cup \{C\}$ be a family of nonempty, closed, and equi-uniformly subsmooth sets. Under appropriate convergence assumptions, certain stability properties hold for the subdifferentials of distance functions.
 \end{lemma}
 
@@ -46,6 +50,7 @@ Let $\mathcal{C} = \{C_n\}_{n\in\mathbb{N}} \cup \{C\}$ be a family of nonempty,
 
 \begin{theorem}[Convergence for subsmooth sets]
 \label{thm:convergence_subsmooth}
+\uses{thm:algorithm_properties,eq:sweeping_process,def:hausdorff,def:boundedly_compact,lem:stability_subsmooth}
 \lean{MoreauSweeping.convergence_subsmooth}
 For boundedly compact subsmooth moving sets, the catching-up algorithm with approximate projections converges to a solution of the sweeping process.
 \end{theorem}
