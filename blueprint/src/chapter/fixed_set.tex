@@ -21,6 +21,7 @@ $$x_{k+1}^n \in \text{proj}_C^{\varepsilon_k^n}(x_k^n) \quad \text{for all } k \
 
 \begin{theorem}[Convergence for fixed sets]
 \label{thm:convergence_fixed_set}
+\uses{thm:algorithm_properties,eq:fixed_sweeping_process,eq:sweeping_process,def:approximate_projection,def:ball_compact}
 \lean{MoreauSweeping.convergence_fixed_set}
 \uses{def:approximate_projection, thm:algorithm_properties, def:ball_compact}
 Let $C \subset H$ be a ball-compact closed set. Under appropriate assumptions on the error sequence, the catching-up algorithm with approximate projections converges to a solution of the sweeping process with fixed set $C$.
