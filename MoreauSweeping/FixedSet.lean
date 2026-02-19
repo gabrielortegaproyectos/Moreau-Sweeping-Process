@@ -5,7 +5,7 @@ import MoreauSweeping.CatchingUp
 /-!
 # Fixed Set Case
 
-Convergence of the catching-up algorithm for a fixed ball-compact closed set.
+Convergence of the catching-up algorithm for a fixed boundedly compact closed set.
 -/
 
 namespace MoreauSweeping
