@@ -23,7 +23,7 @@ theorem BoundedlyCompact.mono_closed {S T : Set H} (hS : BoundedlyCompact S)
   intro r hr
   have hCompact : IsCompact (S ∩ Metric.closedBall (0 : H) r) := hS r hr
   have hClosedInter : IsClosed (T ∩ Metric.closedBall (0 : H) r) :=
-    hTClosed.inter isClosed_closedBall
+    hTClosed.inter Metric.isClosed_closedBall
   have hSubset : T ∩ Metric.closedBall (0 : H) r ⊆ S ∩ Metric.closedBall (0 : H) r := by
     intro x hx
     exact ⟨hTS hx.1, hx.2⟩
@@ -36,7 +36,7 @@ theorem BoundedlyCompact.inter_closed {S T : Set H} (hS : BoundedlyCompact S)
   intro r hr
   have hCompact : IsCompact (S ∩ Metric.closedBall (0 : H) r) := hS r hr
   have hClosedInter : IsClosed ((S ∩ T) ∩ Metric.closedBall (0 : H) r) :=
-    (hSClosed.inter hTClosed).inter isClosed_closedBall
+    (hSClosed.inter hTClosed).inter Metric.isClosed_closedBall
   have hSubset : (S ∩ T) ∩ Metric.closedBall (0 : H) r ⊆ S ∩ Metric.closedBall (0 : H) r := by
     intro x hx
     exact ⟨hx.1.1, hx.2⟩
