@@ -23,6 +23,7 @@ $$\sigma(x, S) := \sup_{z \in S} \langle x, z \rangle$$
 
 \begin{definition}[Enlargements]
 \label{def:enlargements}
+\uses{def:distance}
 Given $\rho \in ]0, +\infty]$ and $\gamma < 1$ positive, the $\rho$-enlargement and $\gamma\rho$-enlargement of $S$ are defined as
 $$U_{\rho}(S) = \{x \in H : d_S(x) < \rho\}$$
 $$U_{\rho}^{\gamma}(S) := \{x \in H : d_S(x) < \gamma \rho\}$$
@@ -30,6 +31,7 @@ $$U_{\rho}^{\gamma}(S) := \{x \in H : d_S(x) < \gamma \rho\}$$
 
 \begin{definition}[Hausdorff distance]
 \label{def:hausdorff}
+\uses{def:distance}
 The excess of $A$ over $B$ is $e(A, B) := \sup_{x \in A} d_B(x)$. The Hausdorff distance is
 $$d_H(A, B) := \max\{e(A, B), e(B, A)\}$$
 \end{definition}
@@ -43,6 +45,7 @@ A vector $h \in H$ belongs to the Clarke tangent cone $T(S; x)$ when for every s
 
 \begin{definition}[Clarke normal cone]
 \label{def:clarke_normal_cone}
+\uses{def:clarke_tangent_cone}
 The Clarke normal cone to $S$ at $x \in S$ is defined as
 $$N(S; x) := \{ v \in H : \langle v, h \rangle \le 0 \text{ for all } h \in T(S; x) \}$$
 where $T(S; x)$ is the Clarke tangent cone.
@@ -57,6 +60,7 @@ for all $y \in \mathbb{B}(x; \eta)$.
 
 \begin{definition}[Proximal normal cone]
 \label{def:proximal_normal_cone}
+\uses{def:proximal_subdifferential}
 Let $S \subset H$ be a closed set and $x \in S$. The proximal normal cone to $S$ at $x$ is
 $$N^P(S; x) := \partial_P I_S(x)$$
 where $I_S$ is the indicator function of $S$.
@@ -64,6 +68,7 @@ where $I_S$ is the indicator function of $S$.
 
 \begin{lemma}[Proximal normal cone characterization]
 \label{lem:proximal_normal_characterization}
+\uses{def:distance,def:proximal_subdifferential,def:proximal_normal_cone}
 \lean{MoreauSweeping.proximal_normal_characterization}
 For any set $S \subset H$ and points $x,y \in S$,
 $$\|x - x\| \le \|x - y\|.$$
@@ -73,6 +78,7 @@ $$\|x - x\| \le \|x - y\|.$$
 
 \begin{definition}[Approximate projection]
 \label{def:approximate_projection}
+\uses{def:distance}
 \lean{MoreauSweeping.approxProj}
 Let $S \subset H$ be a closed set, $\varepsilon > 0$ and $x \in H$. We define the set of $\varepsilon$-approximate projections as
 $$\text{proj}_S^\varepsilon(x) := \left\{ z \in S : \|x - z\|^2 < d_S^2(x) + \varepsilon \right\}$$
@@ -80,6 +86,7 @@ $$\text{proj}_S^\varepsilon(x) := \left\{ z \in S : \|x - z\|^2 < d_S^2(x) + \va
 
 \begin{lemma}
 \label{lem:approximate_projection_formula}
+\uses{def:distance,def:approximate_projection,def:proximal_subdifferential,lem:proximal_normal_characterization}
 \lean{MoreauSweeping.approximate_projection_formula}
 Let $S \subset H$, $x \in S$, and $\varepsilon > 0$. Then
 $$x \in \text{proj}_S^\varepsilon(x).$$
@@ -87,6 +94,7 @@ $$x \in \text{proj}_S^\varepsilon(x).$$
 
 \begin{lemma}[Monotonicity with respect to the tolerance]
 \label{lem:approx_projection_mono}
+\uses{def:approximate_projection,lem:approx_projection_nonempty}
 \lean{MoreauSweeping.approxProj_mono}
 If $0 < \varepsilon_1 \le \varepsilon_2$, then
 $$\text{proj}_S^{\varepsilon_1}(x) \subset \text{proj}_S^{\varepsilon_2}(x).$$
@@ -94,6 +102,7 @@ $$\text{proj}_S^{\varepsilon_1}(x) \subset \text{proj}_S^{\varepsilon_2}(x).$$
 
 \begin{lemma}[Nonemptiness of approximate projections]
 \label{lem:approx_projection_nonempty}
+\uses{def:approximate_projection}
 \lean{MoreauSweeping.approxProj_nonempty}
 If $x \in S$ and $\varepsilon > 0$, then $\text{proj}_S^\varepsilon(x)$ is nonempty.
 \end{lemma}
