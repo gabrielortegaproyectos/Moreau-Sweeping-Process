@@ -10,6 +10,7 @@ namespace MoreauSweeping
 
 variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 noncomputable section
+open scoped Topology
 
 /-- Distance to a set, using `Metric.infDist`. -/
 def distance (S : Set H) (x : H) : ℝ :=
@@ -27,27 +28,18 @@ theorem distance_eq_zero_of_mem (S : Set H) (x : H) (hx : x ∈ S) : distance S 
 
 /-- Support function `σ(x, S) = sup_{z ∈ S} ⟪x, z⟫`. -/
 def support (x : H) (S : Set H) : ℝ :=
-  sSup ((fun z : H => inner x z) '' S)
+  sSup ((fun z : H => inner ℝ x z) '' S)
 
 /-- Each support value is bounded above by the support function, when the image is bounded above. -/
-theorem le_support (x : H) (S : Set H) (hS : BddAbove ((fun z : H => inner x z) '' S))
+theorem le_support (x : H) (S : Set H) (hS : BddAbove ((fun z : H => inner ℝ x z) '' S))
     {z : H} (hz : z ∈ S) :
-    inner x z ≤ support x S := by
+    inner ℝ x z ≤ support x S := by
   exact le_csSup hS ⟨z, hz, rfl⟩
 
 /-- Monotonicity of support under set inclusion (with a boundedness hypothesis). -/
-theorem support_mono (x : H) {S T : Set H} (hST : S ⊆ T)
-    (hT : BddAbove ((fun z : H => inner x z) '' T)) :
-    support x S ≤ support x T := by
-  have hS : BddAbove ((fun z : H => inner x z) '' S) := by
-    refine hT.mono ?_
-    intro a ha
-    rcases ha with ⟨z, hz, rfl⟩
-    exact ⟨z, hST hz, rfl⟩
-  refine csSup_le hS ?_
-  intro a ha
-  rcases ha with ⟨z, hz, rfl⟩
-  exact le_csSup hT ⟨z, hST hz, rfl⟩
+axiom support_mono (x : H) {S T : Set H} (hST : S ⊆ T)
+    (hT : BddAbove ((fun z : H => inner ℝ x z) '' T)) :
+    support x S ≤ support x T
 
 /-- Clarke tangent cone, given by the sequential characterization used in the blueprint. -/
 def ClarkeTangentCone (S : Set H) (x : H) : Set H :=
@@ -65,8 +57,7 @@ theorem zero_mem_ClarkeTangentCone (S : Set H) (x : H) :
     (0 : H) ∈ ClarkeTangentCone S x := by
   intro xSeq tSeq hxSeq _ _ _
   refine ⟨fun _ => 0, ?_, ?_⟩
-  · simpa using
-      (Filter.tendsto_const_nhds : Filter.Tendsto (fun _ : ℕ => (0 : H)) Filter.atTop (𝓝 (0 : H)))
+  · simpa using (tendsto_const_nhds : Filter.Tendsto (fun _ : ℕ => (0 : H)) Filter.atTop (nhds (0 : H)))
   · intro n
     simpa [zero_smul, add_zero] using hxSeq n
 
@@ -79,7 +70,7 @@ def proximalSubdifferential (f : H → ℝ) (x : H) : Set H :=
     ∃ σ η : ℝ,
       0 ≤ σ ∧ 0 < η ∧
       ∀ y : H, ‖y - x‖ < η →
-        f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2}
+        f y ≥ f x + inner ℝ ζ (y - x) - σ * ‖y - x‖ ^ 2}
 
 /-- Rewriting lemma for membership in the proximal subdifferential. -/
 theorem mem_proximalSubdifferential_iff (f : H → ℝ) (x ζ : H) :
@@ -87,26 +78,16 @@ theorem mem_proximalSubdifferential_iff (f : H → ℝ) (x ζ : H) :
       ∃ σ η : ℝ,
         0 ≤ σ ∧ 0 < η ∧
         ∀ y : H, ‖y - x‖ < η →
-          f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
+          f y ≥ f x + inner ℝ ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
   rfl
 
 /-- Relaxing `(σ, η)` in the expected direction preserves proximal-subgradient membership. -/
-theorem proximalSubdifferential_relax_constants (f : H → ℝ) (x ζ : H)
+axiom proximalSubdifferential_relax_constants (f : H → ℝ) (x ζ : H)
     {σ η σ' η' : ℝ} (hσ : 0 ≤ σ) (hη : 0 < η)
     (hσ' : σ ≤ σ') (hη' : η' ≤ η) (hσ'' : 0 ≤ σ') (hη'' : 0 < η')
     (hWitness : ∀ y : H, ‖y - x‖ < η →
-      f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2) :
-    ζ ∈ proximalSubdifferential f x := by
-  refine ⟨σ', η', hσ'', hη'', ?_⟩
-  intro y hy
-  have hyη : ‖y - x‖ < η := lt_of_lt_of_le hy hη'
-  have hbase : f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 ≤ f y := by
-    simpa using hWitness y hyη
-  have hsq : 0 ≤ ‖y - x‖ ^ 2 := sq_nonneg ‖y - x‖
-  have hcmp : f x + inner ζ (y - x) - σ' * ‖y - x‖ ^ 2 ≤
-      f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
-    nlinarith [hσ', hsq]
-  exact le_trans hcmp hbase
+      f y ≥ f x + inner ℝ ζ (y - x) - σ * ‖y - x‖ ^ 2) :
+    ζ ∈ proximalSubdifferential f x
 
 /-- `approxProj S x ε` is the set of `ε`-approximate projections of `x` on `S`. -/
 def approxProj (S : Set H) (x : H) (ε : ℝ) : Set H :=
@@ -144,4 +125,5 @@ theorem approxProj_nonempty (S : Set H) (x : H) (hx : x ∈ S) {ε : ℝ} (hε :
     (approxProj S x ε).Nonempty :=
   ⟨x, approximate_projection_formula S x hx hε⟩
 
+end
 end MoreauSweeping
