@@ -9,6 +9,7 @@ Basic definitions for the catching-up algorithm for Moreau's sweeping processes.
 namespace MoreauSweeping
 
 variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
+noncomputable section
 
 /-- Distance to a set, using `Metric.infDist`. -/
 def distance (S : Set H) (x : H) : ℝ :=
@@ -20,23 +21,25 @@ theorem distance_nonneg (S : Set H) (x : H) : 0 ≤ distance S x := by
 
 /-- If `x ∈ S`, then the distance from `x` to `S` is zero. -/
 theorem distance_eq_zero_of_mem (S : Set H) (x : H) (hx : x ∈ S) : distance S x = 0 := by
-  simpa [distance] using Metric.infDist_eq_zero_of_mem hx
+  refine le_antisymm ?_ (distance_nonneg S x)
+  have hle : Metric.infDist x S ≤ dist x x := Metric.infDist_le_dist_of_mem hx
+  simpa [distance] using hle
 
 /-- Support function `σ(x, S) = sup_{z ∈ S} ⟪x, z⟫`. -/
 def support (x : H) (S : Set H) : ℝ :=
-  sSup ((fun z : H => ⟪x, z⟫_ℝ) '' S)
+  sSup ((fun z : H => inner x z) '' S)
 
 /-- Each support value is bounded above by the support function, when the image is bounded above. -/
-theorem le_support (x : H) (S : Set H) (hS : BddAbove ((fun z : H => ⟪x, z⟫_ℝ) '' S))
+theorem le_support (x : H) (S : Set H) (hS : BddAbove ((fun z : H => inner x z) '' S))
     {z : H} (hz : z ∈ S) :
-    ⟪x, z⟫_ℝ ≤ support x S := by
+    inner x z ≤ support x S := by
   exact le_csSup hS ⟨z, hz, rfl⟩
 
 /-- Monotonicity of support under set inclusion (with a boundedness hypothesis). -/
 theorem support_mono (x : H) {S T : Set H} (hST : S ⊆ T)
-    (hT : BddAbove ((fun z : H => ⟪x, z⟫_ℝ) '' T)) :
+    (hT : BddAbove ((fun z : H => inner x z) '' T)) :
     support x S ≤ support x T := by
-  have hS : BddAbove ((fun z : H => ⟪x, z⟫_ℝ) '' S) := by
+  have hS : BddAbove ((fun z : H => inner x z) '' S) := by
     refine hT.mono ?_
     intro a ha
     rcases ha with ⟨z, hz, rfl⟩
@@ -51,18 +54,19 @@ def ClarkeTangentCone (S : Set H) (x : H) : Set H :=
   {h : H |
     ∀ (xSeq : ℕ → H) (tSeq : ℕ → ℝ),
       (∀ n, xSeq n ∈ S) →
-      Tendsto xSeq atTop (𝓝 x) →
+      Filter.Tendsto xSeq Filter.atTop (𝓝 x) →
       (∀ n, 0 < tSeq n) →
-      Tendsto tSeq atTop (𝓝 (0 : ℝ)) →
+      Filter.Tendsto tSeq Filter.atTop (𝓝 (0 : ℝ)) →
       ∃ hSeq : ℕ → H,
-        Tendsto hSeq atTop (𝓝 h) ∧ ∀ n, xSeq n + tSeq n • hSeq n ∈ S}
+        Filter.Tendsto hSeq Filter.atTop (𝓝 h) ∧ ∀ n, xSeq n + tSeq n • hSeq n ∈ S}
 
 /-- The zero vector always belongs to the Clarke tangent cone. -/
 theorem zero_mem_ClarkeTangentCone (S : Set H) (x : H) :
     (0 : H) ∈ ClarkeTangentCone S x := by
   intro xSeq tSeq hxSeq _ _ _
   refine ⟨fun _ => 0, ?_, ?_⟩
-  · simpa using tendsto_const_nhds
+  · simpa using
+      (Filter.tendsto_const_nhds : Filter.Tendsto (fun _ : ℕ => (0 : H)) Filter.atTop (𝓝 (0 : H)))
   · intro n
     simpa [zero_smul, add_zero] using hxSeq n
 
@@ -75,7 +79,7 @@ def proximalSubdifferential (f : H → ℝ) (x : H) : Set H :=
     ∃ σ η : ℝ,
       0 ≤ σ ∧ 0 < η ∧
       ∀ y : H, ‖y - x‖ < η →
-        f y ≥ f x + ⟪ζ, y - x⟫_ℝ - σ * ‖y - x‖ ^ 2}
+        f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2}
 
 /-- Rewriting lemma for membership in the proximal subdifferential. -/
 theorem mem_proximalSubdifferential_iff (f : H → ℝ) (x ζ : H) :
@@ -83,7 +87,7 @@ theorem mem_proximalSubdifferential_iff (f : H → ℝ) (x ζ : H) :
       ∃ σ η : ℝ,
         0 ≤ σ ∧ 0 < η ∧
         ∀ y : H, ‖y - x‖ < η →
-          f y ≥ f x + ⟪ζ, y - x⟫_ℝ - σ * ‖y - x‖ ^ 2 := by
+          f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
   rfl
 
 /-- Relaxing `(σ, η)` in the expected direction preserves proximal-subgradient membership. -/
@@ -91,16 +95,16 @@ theorem proximalSubdifferential_relax_constants (f : H → ℝ) (x ζ : H)
     {σ η σ' η' : ℝ} (hσ : 0 ≤ σ) (hη : 0 < η)
     (hσ' : σ ≤ σ') (hη' : η' ≤ η) (hσ'' : 0 ≤ σ') (hη'' : 0 < η')
     (hWitness : ∀ y : H, ‖y - x‖ < η →
-      f y ≥ f x + ⟪ζ, y - x⟫_ℝ - σ * ‖y - x‖ ^ 2) :
+      f y ≥ f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2) :
     ζ ∈ proximalSubdifferential f x := by
   refine ⟨σ', η', hσ'', hη'', ?_⟩
   intro y hy
   have hyη : ‖y - x‖ < η := lt_of_lt_of_le hy hη'
-  have hbase : f x + ⟪ζ, y - x⟫_ℝ - σ * ‖y - x‖ ^ 2 ≤ f y := by
+  have hbase : f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 ≤ f y := by
     simpa using hWitness y hyη
   have hsq : 0 ≤ ‖y - x‖ ^ 2 := sq_nonneg ‖y - x‖
-  have hcmp : f x + ⟪ζ, y - x⟫_ℝ - σ' * ‖y - x‖ ^ 2 ≤
-      f x + ⟪ζ, y - x⟫_ℝ - σ * ‖y - x‖ ^ 2 := by
+  have hcmp : f x + inner ζ (y - x) - σ' * ‖y - x‖ ^ 2 ≤
+      f x + inner ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
     nlinarith [hσ', hsq]
   exact le_trans hcmp hbase
 
