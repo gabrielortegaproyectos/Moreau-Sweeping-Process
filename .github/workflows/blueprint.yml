@@ -33,6 +33,9 @@ jobs:
       - name: Get Mathlib cache
         run: ~/.elan/bin/lake exe cache get || true
 
+      - name: Update Lake manifest for doc-gen4
+        run: ~/.elan/bin/lake update doc-gen4
+
       - name: Build project
         run: ~/.elan/bin/lake build MoreauSweeping
 
