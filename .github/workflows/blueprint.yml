@@ -30,8 +30,31 @@ jobs:
       - name: Install elan
         run: curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
 
+      - name: Cache elan toolchains
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elan/toolchains
+            ~/.elan/bin
+          key: Elan-${{ runner.os }}-${{ hashFiles('lean-toolchain') }}
+          restore-keys: |
+            Elan-${{ runner.os }}-
+
       - name: Get Mathlib cache
         run: ~/.elan/bin/lake exe cache get || true
+
+      - name: Cache lake packages and build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            .lake/packages
+            .lake/build
+            docbuild/.lake/packages
+            docbuild/.lake/build
+          key: LakeArtifacts-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'docbuild/lake-manifest.json') }}
+          restore-keys: |
+            LakeArtifacts-${{ runner.os }}-${{ hashFiles('lean-toolchain') }}-
+            LakeArtifacts-${{ runner.os }}-
 
       - name: Build project
         run: ~/.elan/bin/lake build MoreauSweeping
