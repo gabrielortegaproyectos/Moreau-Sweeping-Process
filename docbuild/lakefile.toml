@@ -10,4 +10,4 @@ path = "../"
 [[require]]
 name = "doc-gen4"
 git = "https://github.com/leanprover/doc-gen4.git"
-rev = "main"
+rev = "v4.27.0-rc1"
