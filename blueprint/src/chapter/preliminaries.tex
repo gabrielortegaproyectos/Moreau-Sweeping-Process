@@ -57,6 +57,16 @@ $$N(S; x) := \{ v \in H : \langle v, h \rangle \le 0 \text{ for all } h \in T(S;
 where $T(S; x)$ is the Clarke tangent cone.
 \end{definition}
 
+\begin{definition}[Clarke subdifferential]
+\label{def:clarke_subdifferential}
+\uses{def:clarke_normal_cone,def:support}
+Let $f : H \to \mathbb{R} \cup \{+\infty\}$ and $x \in \operatorname{dom} f$. The Clarke subdifferential of $f$ at $x$ is
+$$\partial f(x) := \{ v \in H : (v,-1) \in N(\operatorname{epi} f; (x,f(x))) \}.$$
+When $f$ is finite and locally Lipschitz around $x$, it is characterized by
+$$\partial f(x)=\{v\in H:\langle v,h\rangle\le f^{\circ}(x;h)\ \text{for all }h\in H\},$$
+where $f^{\circ}(x;\cdot)$ is the generalized directional derivative, and $f^{\circ}(x;\cdot)$ is the support function of $\partial f(x)$.
+\end{definition}
+
 \begin{definition}[Proximal subdifferential]
 \label{def:proximal_subdifferential}
 \lean{MoreauSweeping.proximalSubdifferential}
