@@ -161,5 +161,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Make sure the API documentation cache works
-        run: mv home_page/docs docbuild/.lake/build/doc
+        run: |
+          rm -rf docbuild/.lake/build/doc
+          mv home_page/docs docbuild/.lake/build/doc
      
