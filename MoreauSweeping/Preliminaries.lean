@@ -81,6 +81,21 @@ theorem mem_proximalSubdifferential_iff (f : H → ℝ) (x ζ : H) :
           f y ≥ f x + inner ℝ ζ (y - x) - σ * ‖y - x‖ ^ 2 := by
   rfl
 
+/-- Proximal normal cone, given directly by the local quadratic inequality in the paper. -/
+def proximalNormalCone (S : Set H) (x : H) : Set H :=
+  {ζ : H |
+    ∃ σ η : ℝ,
+      0 ≤ σ ∧ 0 < η ∧
+      ∀ y : H, y ∈ S → ‖y - x‖ < η → inner ℝ ζ (y - x) ≤ σ * ‖y - x‖ ^ 2}
+
+/-- Rewriting lemma for membership in the proximal normal cone. -/
+theorem mem_proximalNormalCone_iff (S : Set H) (x ζ : H) :
+    ζ ∈ proximalNormalCone S x ↔
+      ∃ σ η : ℝ,
+        0 ≤ σ ∧ 0 < η ∧
+        ∀ y : H, y ∈ S → ‖y - x‖ < η → inner ℝ ζ (y - x) ≤ σ * ‖y - x‖ ^ 2 := by
+  rfl
+
 /-- Relaxing `(σ, η)` in the expected direction preserves proximal-subgradient membership. -/
 axiom proximalSubdifferential_relax_constants (f : H → ℝ) (x ζ : H)
     {σ η σ' η' : ℝ} (hσ : 0 ≤ σ) (hη : 0 < η)
