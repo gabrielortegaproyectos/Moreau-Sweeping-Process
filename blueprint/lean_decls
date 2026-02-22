@@ -3,6 +3,7 @@ MoreauSweeping.distance
 MoreauSweeping.support
 MoreauSweeping.ClarkeTangentCone
 MoreauSweeping.proximalSubdifferential
+MoreauSweeping.proximalNormalCone
 MoreauSweeping.proximal_normal_characterization
 MoreauSweeping.BoundedlyCompact
 MoreauSweeping.algorithm_properties

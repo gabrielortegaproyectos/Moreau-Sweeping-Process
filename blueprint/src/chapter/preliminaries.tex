@@ -78,15 +78,17 @@ for all $y \in \mathbb{B}(x; \eta)$.
 
 \begin{definition}[Proximal normal cone]
 \label{def:proximal_normal_cone}
-\uses{def:proximal_subdifferential}
-Let $S \subset H$ be a closed set and $x \in S$. The proximal normal cone to $S$ at $x$ is
-$$N^P(S; x) := \partial_P I_S(x)$$
-where $I_S$ is the indicator function of $S$.
+\uses{def:distance}
+\lean{MoreauSweeping.proximalNormalCone}
+\leanok
+Let $S \subset H$ be a closed set and $x \in H$. A vector $\zeta$ belongs to the proximal normal cone to $S$ at $x$ if there exist $\sigma \ge 0$ and $\eta > 0$ such that
+$$\langle \zeta, y - x \rangle \le \sigma \|y-x\|^2$$
+for all $y \in S$ with $\|y-x\| < \eta$.
 \end{definition}
 
 \begin{lemma}[Proximal normal cone characterization]
 \label{lem:proximal_normal_characterization}
-\uses{def:distance,def:proximal_subdifferential,def:proximal_normal_cone}
+\uses{def:proximal_normal_cone}
 \lean{MoreauSweeping.proximal_normal_characterization}
 \leanok
 For any set $S \subset H$ and points $x,y \in S$,
@@ -105,7 +107,7 @@ $$\text{proj}_S^\varepsilon(x) := \left\{ z \in S : \|x - z\|^2 < d_S^2(x) + \va
 
 \begin{lemma}
 \label{lem:approximate_projection_formula}
-\uses{def:distance,def:approximate_projection,def:proximal_subdifferential,lem:proximal_normal_characterization}
+\uses{def:approximate_projection,lem:proximal_normal_characterization}
 \lean{MoreauSweeping.approximate_projection_formula}
 \leanok
 Let $S \subset H$, $x \in S$, and $\varepsilon > 0$. Then
