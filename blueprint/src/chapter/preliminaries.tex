@@ -79,6 +79,8 @@ for all $y \in \mathbb{B}(x; \eta)$.
 \begin{definition}[Proximal normal cone]
 \label{def:proximal_normal_cone}
 \uses{def:distance}
+\lean{MoreauSweeping.proximalNormalCone}
+\leanok
 Let $S \subset H$ be a closed set and $x \in H$. A vector $\zeta$ belongs to the proximal normal cone to $S$ at $x$ if there exist $\sigma \ge 0$ and $\eta > 0$ such that
 $$\langle \zeta, y - x \rangle \le \sigma \|y-x\|^2$$
 for all $y \in S$ with $\|y-x\| < \eta$.
