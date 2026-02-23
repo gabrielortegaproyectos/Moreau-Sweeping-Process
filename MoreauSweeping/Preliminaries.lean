@@ -111,9 +111,11 @@ def approxProj (S : Set H) (x : H) (ε : ℝ) : Set H :=
 /-- A point is always at least as close to itself as to any other point of the set. -/
 theorem proximal_normal_characterization (S : Set H) (x y : H) (hx : x ∈ S) (hy : y ∈ S) :
     ‖x - x‖ ≤ ‖x - y‖ := by
-  have _ : x ∈ S := hx
-  have _ : y ∈ S := hy
-  simpa using norm_nonneg (x - y)
+  let _ : x ∈ S := hx
+  let _ : y ∈ S := hy
+  calc
+    ‖x - x‖ = 0 := by simp
+    _ ≤ ‖x - y‖ := norm_nonneg _
 
 /-- Monotonicity in the approximation error. -/
 theorem approxProj_mono (S : Set H) (x : H) {ε₁ ε₂ : ℝ} (hε : ε₁ ≤ ε₂) :
