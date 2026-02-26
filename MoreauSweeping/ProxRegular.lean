@@ -12,19 +12,33 @@ namespace MoreauSweeping
 
 variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 
-/-- A set is uniformly prox-regular -/
-axiom UniformlyProxRegular : Set H → Prop
+/-- A set is uniformly prox-regular. -/
+axiom UniformlyProxRegular : Set H → ℝ → Prop
 
-/-- Characterization of prox-regularity -/
-axiom prox_regular_characterization : True
+/-- Condition (b) in Proposition 1 (well-defined/Lipschitz projection on `U^γ_ρ(S)`). -/
+axiom ProxRegCondB : Set H → ℝ → Prop
 
-/-- Convergence of approximate projections for prox-regular sets -/
+/-- Condition (c) in Proposition 1 (hypomonotonicity of proximal normals). -/
+axiom ProxRegCondC : Set H → ℝ → Prop
+
+/-- Condition (d) in Proposition 1 (proximal subgradient inequality for `d_S`). -/
+axiom ProxRegCondD : Set H → ℝ → Prop
+
+/--
+Characterization of prox-regularity (paper, Proposition 1):
+for a closed set `S ⊂ H` and `ρ ∈ ]0,+∞]`, conditions (a), (b), (c), and (d)
+are equivalent.
+-/
+axiom prox_regular_characterization (S : Set H) (ρ : ℝ) :
+    UniformlyProxRegular S ρ ↔ ProxRegCondB S ρ ∧ ProxRegCondC S ρ ∧ ProxRegCondD S ρ
+
+/-- Convergence of approximate projections for prox-regular sets. -/
 axiom approx_proj_convergence_prox_regular : True
 
-/-- Quasi-Lipschitz property of approximate projections -/
+/-- Quasi-Lipschitz property of approximate projections. -/
 axiom quasi_lipschitz_approx_proj : True
 
-/-- Convergence for prox-regular sets -/
+/-- Convergence for prox-regular sets. -/
 axiom convergence_prox_regular : True
 
 end MoreauSweeping

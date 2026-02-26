@@ -19,12 +19,14 @@ for all $x' \in S$.
 \uses{def:distance,def:enlargements,def:prox_regular,def:proximal_normal_cone}
 \lean{MoreauSweeping.prox_regular_characterization}
 \leanok
-Let $S \subset H$ be a closed set and $\rho \in (0, +\infty]$. The following are equivalent:
+Let $S \subset H$ be a closed set and $\rho \in ]0, +\infty]$. The following assertions are equivalent:
 \begin{enumerate}
 \item $S$ is $\rho$-uniformly prox-regular
 \item For any $\gamma \in (0,1)$, the projection map $\text{proj}_S$ is well-defined on $U_\rho^\gamma(S)$ and Lipschitz continuous with constant $(1-\gamma)^{-1}$
 \item For any $x_i \in S$, $v_i \in N^P(S; x_i)$ with $i = 1, 2$:
 $$\langle v_1 - v_2, x_1 - x_2 \rangle \ge -\frac{1}{2\rho} (\|v_1\| + \|v_2\|) \|x_1 - x_2\|^2$$
+\item For all $\gamma \in ]0,1[$, for all $x, x' \in U_\rho^\gamma(S)$, and for all $\xi \in \partial_P d_S(x)$,
+$$\langle \xi, x' - x \rangle \le \frac{1}{2\rho(1-\gamma)^2}\|x' - x\|^2 + d_S(x') - d_S(x).$$
 \end{enumerate}
 \end{proposition}
 

@@ -104,18 +104,17 @@ axiom proximalSubdifferential_relax_constants (f : H → ℝ) (x ζ : H)
       f y ≥ f x + inner ℝ ζ (y - x) - σ * ‖y - x‖ ^ 2) :
     ζ ∈ proximalSubdifferential f x
 
+/-- Projection set on `S` at `x`: all minimizers of the distance to `S`. -/
+def Proj (S : Set H) (x : H) : Set H :=
+  {z : H | z ∈ S ∧ distance S x = ‖x - z‖}
+
 /-- `approxProj S x ε` is the set of `ε`-approximate projections of `x` on `S`. -/
 def approxProj (S : Set H) (x : H) (ε : ℝ) : Set H :=
   {z : H | z ∈ S ∧ ∀ y ∈ S, ‖x - z‖ ^ 2 < ‖x - y‖ ^ 2 + ε}
 
-/-- A point is always at least as close to itself as to any other point of the set. -/
-theorem proximal_normal_characterization (S : Set H) (x y : H) (hx : x ∈ S) (hy : y ∈ S) :
-    ‖x - x‖ ≤ ‖x - y‖ := by
-  let _ : x ∈ S := hx
-  let _ : y ∈ S := hy
-  calc
-    ‖x - x‖ = 0 := by simp
-    _ ≤ ‖x - y‖ := norm_nonneg _
+/-- If `z` is an exact projection of `x` on `S`, then `x - z` is a proximal subgradient of `d_S` at `z`. -/
+axiom proximal_normal_characterization (S : Set H) (x z : H) :
+    z ∈ Proj S x → x - z ∈ proximalSubdifferential (distance S) z
 
 /-- Monotonicity in the approximation error. -/
 theorem approxProj_mono (S : Set H) (x : H) {ε₁ ε₂ : ℝ} (hε : ε₁ ≤ ε₂) :
