@@ -81,18 +81,18 @@ for all $y \in \mathbb{B}(x; \eta)$.
 \uses{def:distance}
 \lean{MoreauSweeping.proximalNormalCone}
 \leanok
-Let $S \subset H$ be a closed set and $x \in H$. A vector $\zeta$ belongs to the proximal normal cone to $S$ at $x$ if there exist $\sigma \ge 0$ and $\eta > 0$ such that
+Let $S \subset H$ be a closed set and $x \in S$. A vector $\zeta$ belongs to the proximal normal cone to $S$ at $x$ if there exist $\sigma \ge 0$ and $\eta > 0$ such that
 $$\langle \zeta, y - x \rangle \le \sigma \|y-x\|^2$$
 for all $y \in S$ with $\|y-x\| < \eta$.
 \end{definition}
 
-\begin{lemma}[Proximal normal cone characterization]
+\begin{lemma}[Projection formula for the proximal subdifferential of the distance]
 \label{lem:proximal_normal_characterization}
-\uses{def:proximal_normal_cone}
+\uses{def:distance,def:proximal_subdifferential}
 \lean{MoreauSweeping.proximal_normal_characterization}
 \leanok
-For any set $S \subset H$ and points $x,y \in S$,
-$$\|x - x\| \le \|x - y\|.$$
+Let $S \subset H$ be a closed set, $x \in H$, and $z \in S$ such that $d_S(x)=\|x-z\|$. Then
+$$x-z \in d_S(x)\,\partial_P d_S(z).$$
 \end{lemma}
 
 \section{Approximate Projections}
