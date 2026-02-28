@@ -35,7 +35,11 @@ This is the constant-radius specialization of the equivalences proved by Colombo
 \noindent\emph{(1) $\Rightarrow$ (2).}
 If $S$ is $\rho$-uniformly prox-regular, then Theorem~3(f) with $\rho(\cdot)\equiv\rho$ yields: for each $\gamma\in(0,1)$, the projection is single-valued on $U_\rho^\gamma(S)$ and
 $$
+<<<<<<< codex/create-latex-proof-for-proposition-3.2-eruylr
+\|\text{proj}_S(u_1)-\text{proj}_S(u_2)\|\le (1-\gamma)^{-1}\|u_1-u_2\|.
+=======
 \|\proj_S(u_1)-\proj_S(u_2)\|\le (1-\gamma)^{-1}\|u_1-u_2\|.
+>>>>>>> master
 $$
 Hence (2) holds.
 
@@ -43,13 +47,21 @@ Hence (2) holds.
 \noindent\emph{(2) $\Rightarrow$ (1).}
 Take $x\in S$, $v\in N^P(S;x)$ with $\|v\|\le 1$, and $t\in(0,\rho)$. To prove $\rho$-prox-regularity it is enough to show
 $$
+<<<<<<< codex/create-latex-proof-for-proposition-3.2-eruylr
+x\in \text{Proj}_S(x+tv).
+=======
 x\in \Proj_S(x+tv).
+>>>>>>> master
 $$
 Choose $t<t'<\rho$ and set $\gamma=t'/\rho\in(0,1)$. Then
 $$
 d_S(x+tv)\le \|x+tv-x\|=t<\gamma\rho,
 $$
+<<<<<<< codex/create-latex-proof-for-proposition-3.2-eruylr
+so $x+tv\in U_\rho^\gamma(S)$ and $\text{proj}_S(x+tv)$ is well-defined by (2). Using the projection/resolvent identification for the proximal normal cone from Theorem~3 (constant-radius case), one gets $\text{proj}_S(x+tv)=x$. Therefore $x\in\text{Proj}_S(x+tv)$, i.e. $S$ is $\rho$-uniformly prox-regular.
+=======
 so $x+tv\in U_\rho^\gamma(S)$ and $\proj_S(x+tv)$ is well-defined by (2). Using the projection/resolvent identification for the proximal normal cone from Theorem~3 (constant-radius case), one gets $\proj_S(x+tv)=x$. Therefore $x\in\Proj_S(x+tv)$, i.e. $S$ is $\rho$-uniformly prox-regular.
+>>>>>>> master
 
 \smallskip
 \noindent\emph{(1) $\Leftrightarrow$ (3).}
@@ -62,7 +74,11 @@ which is (3).
 
 \smallskip
 \noindent\emph{(2) $\Rightarrow$ (4).}
+<<<<<<< codex/create-latex-proof-for-proposition-3.2-eruylr
+Fix $\gamma\in(0,1)$ and $x\in U_\rho^\gamma(S)$, and write $p=\text{proj}_S(x)$. By (2), $\text{proj}_S$ is Lipschitz on the tube, which yields $C^{1,1}$ regularity of $x\mapsto \frac12 d_S(x)^2$ there, with modulus controlled by $(1-\gamma)^{-1}$. Translating this estimate to $d_S$ via proximal subgradients gives
+=======
 Fix $\gamma\in(0,1)$ and $x\in U_\rho^\gamma(S)$, and write $p=\proj_S(x)$. By (2), $\proj_S$ is Lipschitz on the tube, which yields $C^{1,1}$ regularity of $x\mapsto \frac12 d_S(x)^2$ there, with modulus controlled by $(1-\gamma)^{-1}$. Translating this estimate to $d_S$ via proximal subgradients gives
+>>>>>>> master
 $$
 d_S(x')\ge d_S(x)+\langle\xi,x'-x\rangle - \frac{1}{2\rho(1-\gamma)^2}\|x'-x\|^2,
 $$
