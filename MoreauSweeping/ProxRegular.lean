@@ -32,6 +32,35 @@ are equivalent.
 axiom prox_regular_characterization (S : Set H) (ρ : ℝ) :
     UniformlyProxRegular S ρ ↔ ProxRegCondB S ρ ∧ ProxRegCondC S ρ ∧ ProxRegCondD S ρ
 
+/-- Proposition 3.2 (constant-radius specialization): `(a) ↔ (b) ∧ (c) ∧ (d)`. -/
+theorem proposition_3_2_characterization (S : Set H) (ρ : ℝ) :
+    UniformlyProxRegular S ρ ↔ ProxRegCondB S ρ ∧ ProxRegCondC S ρ ∧ ProxRegCondD S ρ :=
+  prox_regular_characterization S ρ
+
+/-- Direction `(a) → (b)` in Proposition 3.2. -/
+theorem proposition_3_2_a_implies_b (S : Set H) (ρ : ℝ) :
+    UniformlyProxRegular S ρ → ProxRegCondB S ρ := by
+  intro h
+  exact (proposition_3_2_characterization S ρ).1 h |>.1
+
+/-- Direction `(a) → (c)` in Proposition 3.2. -/
+theorem proposition_3_2_a_implies_c (S : Set H) (ρ : ℝ) :
+    UniformlyProxRegular S ρ → ProxRegCondC S ρ := by
+  intro h
+  exact (proposition_3_2_characterization S ρ).1 h |>.2.1
+
+/-- Direction `(a) → (d)` in Proposition 3.2. -/
+theorem proposition_3_2_a_implies_d (S : Set H) (ρ : ℝ) :
+    UniformlyProxRegular S ρ → ProxRegCondD S ρ := by
+  intro h
+  exact (proposition_3_2_characterization S ρ).1 h |>.2.2
+
+/-- Combined reverse direction `(b) ∧ (c) ∧ (d) → (a)` in Proposition 3.2. -/
+theorem proposition_3_2_bcd_implies_a (S : Set H) (ρ : ℝ) :
+    ProxRegCondB S ρ ∧ ProxRegCondC S ρ ∧ ProxRegCondD S ρ → UniformlyProxRegular S ρ := by
+  intro h
+  exact (proposition_3_2_characterization S ρ).2 h
+
 /-- Convergence of approximate projections for prox-regular sets. -/
 axiom approx_proj_convergence_prox_regular : True
 
